@@ -6,7 +6,10 @@ const exponentialBackoffStrategy = x => 2 ** x
  * Will take care of eliminating the flickering effect when the server responds quickly.
  *
  * @example
- * const getDataWithDelay = requestWithDelay(getData())
+ * const getDataWithRetry = requestWithRetry(() => getData(), 3);
+ * // or
+ * const linerBackoffStrategy = x => (2 * x) + 1;
+ * const getDataWithRetry = requestWithRetry(() => getData(), 3, linerBackoffStrategy);
  *
  * @param request {() => Promise} - async request of data.
  * @param retries {number} - number of attempts.

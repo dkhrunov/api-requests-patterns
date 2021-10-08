@@ -6,7 +6,7 @@ export const DEFAULT_REQUEST_TIMEOUT = 10000;
  * Will cancel the request if the response from the server is longer than timeout.
  *
  * @example
- * const getDataWithTimeout = requestWithTimeout(getData())
+ * const getDataWithTimeout = requestWithTimeout(getData());
  *
  * @param request {Promise} - async request of data.
  * @param timeout {number} - the upper bound for waiting for a request.

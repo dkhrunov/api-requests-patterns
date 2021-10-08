@@ -1,12 +1,18 @@
 import {TimeoutError} from "./TimeoutError";
 
-export const DEFAULT_REQUEST_TIMEOUT = 10000;
+export const DEFAULT_REQUEST_TIMEOUT = 5000;
 
 /**
- * Will cancel the request if the response from the server is longer than timeout.
+ * Will cancel the request and throw error if the response from the server is longer than timeout.
  *
  * @example
- * const getDataWithTimeout = requestWithTimeout(getData());
+ * const getData = () => fetch('https://jsonplaceholder.typicode.com/posts/1');
+ *
+ * // getting error if server dont response after 100ms
+ * requestWithTimeout(getData(), 100)
+ *     .then(response => response.json())
+ *     .then(data => console.log(data))
+ *     .catch(error => console.error(error));
  *
  * @param request {Promise} - async request of data.
  * @param timeout {number} - the upper bound for waiting for a request.

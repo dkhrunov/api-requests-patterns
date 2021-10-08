@@ -16,8 +16,7 @@ const exponentialBackoffStrategy = x => 2 ** x
  * @param strategy {(number) => number} - request rate function. Default exponential function.
  * @returns {Promise}
  */
-export const requestWithRetry = async (request, retries, strategy = exponentialBackoffStrategy) => {
-    let iteration = 0;
+export const requestWithRetry = async (request, retries, strategy = exponentialBackoffStrategy, iteration = 0) => {
 
     try {
         const response = await request();
@@ -25,8 +24,7 @@ export const requestWithRetry = async (request, retries, strategy = exponentialB
     } catch (error) {
         if (retries > iteration) {
             await new Promise(resolve => setTimeout(resolve, strategy(iteration) * 1000));
-            iteration++;
-            return requestWithRetry(request, retries, strategy);
+            return requestWithRetry(request, retries, strategy, iteration++);
         } else {
             throw error;
         }

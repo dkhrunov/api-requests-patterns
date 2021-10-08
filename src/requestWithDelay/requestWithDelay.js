@@ -14,5 +14,5 @@ export const requestWithDelay = (request, delay = DEFAULT_REQUEST_DELAY) => {
     return new Promise.all([
         request,
         new Promise(resolve => setTimeout(resolve, delay))
-    ])
+    ]).then(values => values[0]);
 }
